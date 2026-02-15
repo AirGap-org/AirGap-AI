@@ -1,3 +1,4 @@
+# AI & Data
 pandas
 pandas-stubs
 scipy
@@ -6,3 +7,8 @@ scikit-learn
 xgboost
 tensorflow
 numpy
+
+# REST API
+fastapi
+uvicorn
+joblib

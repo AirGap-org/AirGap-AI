@@ -1,12 +1,14 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from tensorflow.keras.layers import Input, Dense, Concatenate
+from tensorflow.keras.layers import Input, Dense
 from tensorflow.keras.models import Model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.sparse import hstack
+import joblib
+
 
 def predire_categorie(model, tfidf, scaler, label_encoder, montant, libelle):
     # Vectorisation du libellé
@@ -21,7 +23,6 @@ def predire_categorie(model, tfidf, scaler, label_encoder, montant, libelle):
     categorie_encodee = np.argmax(probabilites)
     score_confiance = probabilites[categorie_encodee] * 100
     return label_encoder.inverse_transform([categorie_encodee])[0], score_confiance
-
 
 
 # Charger le dataset
@@ -69,12 +70,10 @@ history = model.fit(X_train_tensor, y_train, validation_data=(X_test_tensor, y_t
 
 # Évaluation
 loss, accuracy = model.evaluate(X_test_tensor, y_test)
-print(f"Accuracy: {accuracy*100:.2f}%")
+print(f"Accuracy: {accuracy * 100:.2f}%")
 
-
-df_nouveau = pd.read_csv('__data/aldwin_out.csv')
-
-# Prédire pour chaque transaction
-for index, row in df_nouveau.iterrows():
-    categorie, score = predire_categorie(model, tfidf, scaler, label_encoder, row["montant"], row["libelle"])
-    print(f"Transaction: {row['libelle']} ({row['montant']}€) → Catégorie prédite: {categorie} (confiance: {score:.2f}%)")
+# Sauvegarde du modele
+model.save('modele_transactions.keras')
+joblib.dump(tfidf, 'tfidf_vectorizer.pkl')
+joblib.dump(scaler, 'scaler.pkl')
+joblib.dump(label_encoder, 'label_encoder.pkl')
