@@ -1,0 +1,7 @@
+pandas
+pandas-stubs
+scipy
+scipy-stubs
+scikit-learn
+xgboost
+tensorflow
