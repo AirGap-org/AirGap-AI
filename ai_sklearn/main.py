@@ -2,7 +2,7 @@ import pandas as pd
 from scipy.sparse import hstack
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selectionpandas import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from xgboost import XGBClassifier
 
@@ -27,7 +27,7 @@ def predire_categorie(model, tfidf, label_encoder, montant, libelle):
 
 
 if __name__ == '__main__':
-    df = pd.read_csv("airgap_dataset.csv")
+    df = pd.read_csv("../__data/airgap_dataset.csv")
 
     tfidf = TfidfVectorizer()
     X_libelle = tfidf.fit_transform(df['libelle'])

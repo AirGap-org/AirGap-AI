@@ -5,3 +5,4 @@ scipy-stubs
 scikit-learn
 xgboost
 tensorflow
+numpy
