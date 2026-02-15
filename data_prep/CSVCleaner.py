@@ -19,7 +19,7 @@ class CSVCleaner(ABC):
          .str.replace(r'\s+', ' ', regex=True)
          .str.strip())
 
-        self.df['categorie'] = 'Autres'
+        self.df['categorie'] = 'Non catégorisé'
 
     def extract(self, extract_csv):
         self.df.to_csv(extract_csv, index=False)
